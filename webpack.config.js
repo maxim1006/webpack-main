@@ -2,7 +2,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -28,19 +28,27 @@ const config = {
     // mode: 'development',
 
     devtool: 'source-map',
-    stats: "verbose",
+    stats: "minimal",
 
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env']
+                        }
+                    },
+                    {
+                        loader: 'eslint-loader',
+                        options: {
+                            // eslint options (if necessary)
+                        }
                     }
-                }
+                ]
             },
             {
                 // Apply rule for .sass, .scss or .css files
