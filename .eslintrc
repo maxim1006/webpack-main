@@ -1,4 +1,9 @@
 {
     "parser": "babel-eslint",
-    "extends": ["airbnb"]
+    "extends": ["airbnb"],
+    "rules": {
+        "object-curly-spacing": 0,
+        "indent": ["error", 4],
+        "no-multiple-empty-lines": ["errror", 2000]
+    }
 }

@@ -1,9 +1,11 @@
 // Webpack uses this to work with directories
 const path = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -28,7 +30,7 @@ const config = {
     // mode: 'development',
 
     devtool: 'source-map',
-    stats: "minimal",
+    stats: isProduction ? "verbose" : "minimal",
 
     module: {
         rules: [
@@ -45,7 +47,8 @@ const config = {
                     {
                         loader: 'eslint-loader',
                         options: {
-                            // eslint options (if necessary)
+                            // make build immune to lint errors
+                            emitWarning: isProduction
                         }
                     }
                 ]
@@ -88,8 +91,22 @@ const config = {
                 ]
             },
             {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            symbolId: "icon-[name]",
+                            extract: isProduction,
+                        }
+                    },
+                    'svg-transform-loader',
+                    'svgo-loader'
+                ]
+            },
+            {
                 // Now we apply rule for images
-                test: /\.(png|jpe?g|gif|svg)$/,
+                test: /\.(png|jpe?g|gif)$/,
                 use: [
                     {
                         // Using file-loader for these files
@@ -135,6 +152,10 @@ const config = {
             chunkFilename: '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
+        new SpriteLoaderPlugin(),
+        new webpack.DefinePlugin({
+            "WEBPACK_MODE": isProduction
+        })
     ],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
