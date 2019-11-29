@@ -1,0 +1,17 @@
+.button {
+    &._accept {
+        padding: 10px 20px;
+        color: white;
+        background-color: forestgreen;
+        border: 1px solid darkgreen;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    &__text {
+        &._dark {
+            color: white;
+            background-color: black;
+        }
+    }
+}

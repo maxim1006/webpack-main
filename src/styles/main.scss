@@ -1,13 +1,13 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// third party styles
+@import "../../node_modules/normalize.css";
 
-.main {
-    display: flex;
-    padding: 20px;
-}
+// Blocks
+@import "components/main";
+@import "components/button";
 
-@import "blocks/block";
+
+
+
+
+
 
