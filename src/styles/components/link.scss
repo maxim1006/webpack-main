@@ -1,0 +1,31 @@
+@import "../common/common-imports";
+
+.link {
+    color: $main-color;
+    text-decoration: none;
+    transition: color .15s ease-out;
+
+    &:hover {
+        color: $main-hover-color;
+    }
+
+    &._geolink {
+        position: relative;
+        padding-left: 19px;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            transform: translateY(-50%);
+            background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32'%3E%3Cg fill='none'%3E%3Cpath fill='%23404040' d='M13.07 3.58l-4 9.98a.5.5 0 0 1-.95-.06L7 9 2.5 7.88a.5.5 0 0 1-.06-.95l9.98-4a.5.5 0 0 1 .65.65z'/%3E%3Cpath fill='%23F12727' d='M13.07 19.58l-4 9.98a.5.5 0 0 1-.95-.06L7 25l-4.5-1.12a.5.5 0 0 1-.06-.95l9.98-4a.5.5 0 0 1 .65.65z'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
+        }
+
+        &:hover:before  {
+            background-position: 0 -16px;
+        }
+    }
+}
